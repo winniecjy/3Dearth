@@ -1,0 +1,37 @@
+{
+  "name": "basic-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "set ENV=dev&& webpack -w",
+    "prod": "set ENV=prod&& webpack -wp",
+    "show": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^7.1.3",
+    "clean-webpack-plugin": "^0.1.17",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.4",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.0.6",
+    "postcss-plugin-px2rem": "^0.7.0",
+    "postcss-sprites": "^4.2.1",
+    "sass-loader": "^6.0.6",
+    "webpack": "^2.7.0",
+    "webpack-dev-server": "^2.7.1"
+  },
+  "dependencies": {
+    "@jmfe/jm-cookie": "^1.0.0",
+    "@jmfe/jm-service": "^2.1.0",
+    "@jmfe/jm-webview": "^1.6.0-beta.1",
+    "promise-polyfill": "6.0.2",
+    "scriptjs": "^2.5.8",
+    "whatwg-fetch": "^2.0.3"
+  }
+}
