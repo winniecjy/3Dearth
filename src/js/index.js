@@ -19,7 +19,7 @@ require('whatwg-fetch');
 var webview = require('@jmfe/jm-webview');
 var service = require('@jmfe/jm-service');
 
-var constant = require('./constant');
+require('./constant');
 var load = require('./load');
 var play = require('./play');
 

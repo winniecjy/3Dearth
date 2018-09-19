@@ -31,9 +31,9 @@ module.exports = {
 		new CleanWebpackPlugin('./dist'),
 		new webpack.BannerPlugin('v0.17'),
 		new ExtractTextWebpackPlugin('css/[name].css'),
-		new webpack.ProvidePlugin({
-			$: '../lib/zepto.js'
-		}),
+		// new webpack.ProvidePlugin({
+		// 	$: '../lib/zepto.js'
+		// }),
 		new CopyWebpackPlugin([
 			{
 				from : './src/img',

@@ -1,3 +1,20 @@
+/**
+ * 
+ * @param {经度} longitude 
+ * @param {纬度} latitude 
+ * @param {半径} radius 
+ */
+
+function lglt2xyz(latitude, longitude, radius) {
+    var lg = THREE.Math.degToRad(longitude),
+        lt = THREE.Math.degToRad(latitude);
+    var y = radius * Math.sin(lt);
+    var temp = radius * Math.cos(lt);
+    var x = temp * Math.sin(lg);
+    var z = temp * Math.cos(lg);
+    console.log(x + "," + y + "," + z);
+    // return {x:x , y:y ,z:z}
+}
 
 const load = {
     init: function () {
@@ -5,7 +22,8 @@ const load = {
         this.initCamera();
         this.initScene();
         this.initLight();
-        this.initModel();
+        this.initEarth();
+        this.initCity();
     },
 
     initCamera: function () {
@@ -21,7 +39,6 @@ const load = {
     },
 
     initRender: function () {
-        container = document.getElementById("container");
         renderer = new THREE.WebGLRenderer({
             alpha: true,
             antialias: true
@@ -33,15 +50,7 @@ const load = {
         container.appendChild(renderer.domElement);
     },
 
-    initModel: function () {
-        // the blu light
-        // var blueBall = new THREE.Mesh(new THREE.SphereBufferGeometry(15, 20, 20), new THREE.MeshBasicMaterial({
-        //     color: 0x95d0ff,
-        //     transparent: true,
-        //     opacity: 1
-        // }))
-        // scene.add(blueBall);
-        
+    initEarth: function () {
         // the earth
         var textureLoader = new THREE.TextureLoader();
         var geometry = new THREE.SphereBufferGeometry(15, 20, 20); /* 几何模型 */
@@ -64,7 +73,7 @@ const load = {
         }); /* 材质 */
 
         earth = new THREE.Mesh(geometry, material);
-        earth.rotation.y += 100;
+        earth.rotation.y = 3.5;
 
         earthGroup = new THREE.Group();
         earthGroup.add(earth);
@@ -82,26 +91,22 @@ const load = {
         );
         earthGroup.add(cloud);
         earthGroup.name = "earthGroup";
-        
-        scene.add(earth);
-        scene.add(cloud);
+
+        scene.add(earthGroup);
         renderer.render(scene, camera);
+
+        console.log(earth)
     },
 
-    // initCloud: function () {
-    //     cloud = new THREE.Mesh(
-    //         new THREE.SphereGeometry(15.5, 24, 24),
-    //         new THREE.MeshPhongMaterial({
-    //             map: new THREE.TextureLoader().load('../img/earth_cloud.png', function () {
-    //                 renderer.render(scene, camera);
-    //             }),
-    //             opacity: .98,
-    //             transparent: true,
-    //             blending: 'AdditiveBlending'
-    //         })
-    //     );
-    //     scene.add(cloud);
-    // },
+    initCity: function () {
+        lglt2xyz(-19.2, 14.11666667-100, 16)
+        // var canvas = document.createElement('canvas');
+        // var texture = new THREE.Texture(canvas); 
+        // texture.needsUpdate = true;
+        // var spriteMaterial = new THREE.SpriteMaterial( 
+        //     { map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
+        // var sprite = new THREE.Sprite( spriteMaterial );
+    },
 
     initLight: function () {
         var all = new THREE.AmbientLight(0x393939, .8);
@@ -109,16 +114,6 @@ const load = {
         light.position.set(-11, 3, 1);
         var sun = new THREE.SpotLight(0x393939, 2.5);
         sun.position.set(-15, 10, 21);
-        // sun.angle = 0.2
-        // sun.castShadow = false
-        // sun.penumbra = 0.4
-        // sun.distance = 124
-        // sun.decay = 1
-        // sun.shadow.camera.near = 50
-        // sun.shadow.camera.far = 200
-        // sun.shadow.camera.fov = 35
-        // sun.shadow.mapSize.height = 1024
-        // sun.shadow.mapSize.width = 1024
 
         scene.add(all);
         scene.add(sun);
