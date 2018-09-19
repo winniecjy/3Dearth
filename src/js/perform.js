@@ -1,6 +1,6 @@
 // 坐标轴
-// var axes = new THREE.AxesHelper(500);
-// scene.add(axes);
+var axes = new THREE.AxesHelper(30);
+scene.add(axes);
 
 // 性能控件
 var Stats = require ('../lib/stats.min.js');

@@ -1,7 +1,7 @@
 /**
  * 
- * @param {经度} longitude 
  * @param {纬度} latitude 
+ * @param {经度} longitude 
  * @param {半径} radius 
  */
 
@@ -12,8 +12,10 @@ function lglt2xyz(latitude, longitude, radius) {
     var temp = radius * Math.cos(lt);
     var x = temp * Math.sin(lg);
     var z = temp * Math.cos(lg);
+    // var x = radius * Math.cos(lt);
+    // var z = radius * Math.sin(lg);
     console.log(x + "," + y + "," + z);
-    // return {x:x , y:y ,z:z}
+    return {x:x , y:y ,z:z}
 }
 
 const load = {
@@ -33,9 +35,11 @@ const load = {
 
     initScene: function () {
         scene = new THREE.Scene();
+        locationGroup = new THREE.Group();
         // scene背景
         scene.opacity = 0;
         scene.transparent = true;
+        scene.add(locationGroup);
     },
 
     initRender: function () {
@@ -48,6 +52,7 @@ const load = {
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setClearAlpha(0);
         container.appendChild(renderer.domElement);
+        console.log(window.devicePixelRatio);
     },
 
     initEarth: function () {
@@ -61,19 +66,13 @@ const load = {
             transparent: false,
             opacity: 1,
             overdraw: 0.5,
-            map: textureLoader.load('../img/earth.jpg', function () {
-                renderer.render(scene, camera);
-            }),
-            specularMap: textureLoader.load('../img/earth_spec.jpg', function () {
-                renderer.render(scene, camera);
-            }),
-            bumpMap: textureLoader.load('../img/earth_bump.jpg', function () {
-                renderer.render(scene, camera);
-            })
+            map: textureLoader.load('../img/earth.jpg'),
+            specularMap: textureLoader.load('../img/earth_spec.jpg'),
+            bumpMap: textureLoader.load('../img/earth_bump.jpg')
         }); /* 材质 */
 
         earth = new THREE.Mesh(geometry, material);
-        earth.rotation.y = 3.5;
+        earth.rotation.y = -(Math.PI/2).toFixed(2);
 
         earthGroup = new THREE.Group();
         earthGroup.add(earth);
@@ -81,9 +80,7 @@ const load = {
         cloud = new THREE.Mesh(
             new THREE.SphereGeometry(15.5, 24, 24),
             new THREE.MeshPhongMaterial({
-                map: new THREE.TextureLoader().load('../img/earth_cloud.png', function () {
-                    renderer.render(scene, camera);
-                }),
+                map: new THREE.TextureLoader().load('../img/earth_cloud.png'),
                 opacity: .98,
                 transparent: true,
                 blending: 'AdditiveBlending'
@@ -94,18 +91,21 @@ const load = {
 
         scene.add(earthGroup);
         renderer.render(scene, camera);
-
-        console.log(earth)
     },
 
     initCity: function () {
-        lglt2xyz(-19.2, 14.11666667-100, 16)
-        // var canvas = document.createElement('canvas');
-        // var texture = new THREE.Texture(canvas); 
-        // texture.needsUpdate = true;
-        // var spriteMaterial = new THREE.SpriteMaterial( 
-        //     { map: texture, useScreenCoordinates: false, alignment: spriteAlignment } );
-        // var sprite = new THREE.Sprite( spriteMaterial );
+        var beijing = lglt2xyz(30.40, 120.52, 15*1.05);
+        LOCATIONS.forEach(location => {
+            let spriteMaterial = new THREE.SpriteMaterial({
+                map: new THREE.TextureLoader().load('../img/'+location.imageName+'.png'),
+                color: 0xffffff,
+                fog: true
+            })
+            let sprite = new THREE.Sprite(spriteMaterial)
+            sprite.position.set(beijing.x, beijing.y, beijing.z)
+            // sprite.scale.set(4, 4, 4)
+            locationGroup.add(sprite)
+        })
     },
 
     initLight: function () {
