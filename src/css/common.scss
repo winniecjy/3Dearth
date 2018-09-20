@@ -30,3 +30,22 @@
 	height: 100%;
 	background: url('../img/galaxy_starfield.png') 0 0 repeat;
 }
+
+#cityName {
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	color: #fff;
+	font-size: 60px;
+	font-weight: bold;
+
+	bottom: 180px;
+	opacity: 0;
+	transition: all .5s ease-in;
+}
+
+#cityName.showed {
+	bottom: 200px;
+	opacity: 1;
+	transition: all .5s ease-in;
+}

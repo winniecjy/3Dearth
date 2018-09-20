@@ -12,11 +12,9 @@ function lglt2xyz(latitude, longitude, radius) {
     var temp = radius * Math.cos(lt);
     var x = temp * Math.sin(lg);
     var z = temp * Math.cos(lg);
-    // var x = radius * Math.cos(lt);
-    // var z = radius * Math.sin(lg);
-    console.log(x + "," + y + "," + z);
     return {x:x , y:y ,z:z}
 }
+
 
 const load = {
     init: function () {
@@ -52,13 +50,12 @@ const load = {
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setClearAlpha(0);
         container.appendChild(renderer.domElement);
-        console.log(window.devicePixelRatio);
     },
 
     initEarth: function () {
         // the earth
         var textureLoader = new THREE.TextureLoader();
-        var geometry = new THREE.SphereBufferGeometry(15, 20, 20); /* 几何模型 */
+        var geometry = new THREE.SphereBufferGeometry(earthRadius, 20, 20); /* 几何模型 */
         var material = new THREE.MeshPhongMaterial({
             color: 0xffffff,
             specular: 0x404040,
@@ -94,16 +91,17 @@ const load = {
     },
 
     initCity: function () {
-        var beijing = lglt2xyz(30.40, 120.52, 15*1.05);
         LOCATIONS.forEach(location => {
             let spriteMaterial = new THREE.SpriteMaterial({
-                map: new THREE.TextureLoader().load('../img/'+location.imageName+'.png'),
+                map: new THREE.TextureLoader().load('../img/location.png'),
                 color: 0xffffff,
                 fog: true
             })
             let sprite = new THREE.Sprite(spriteMaterial)
-            sprite.position.set(beijing.x, beijing.y, beijing.z)
-            // sprite.scale.set(4, 4, 4)
+            let pos = lglt2xyz(location.coord[0], location.coord[1], cityRadius);
+            location.pos = pos;
+            sprite.position.set(pos.x, pos.y, pos.z)
+            sprite.name = location.name;
             locationGroup.add(sprite)
         })
     },
