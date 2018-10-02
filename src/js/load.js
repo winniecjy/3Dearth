@@ -8,6 +8,7 @@
 function lglt2xyz(latitude, longitude, radius) {
     var lg = THREE.Math.degToRad(longitude),
         lt = THREE.Math.degToRad(latitude);
+
     var y = radius * Math.sin(lt);
     var temp = radius * Math.cos(lt);
     var x = temp * Math.sin(lg);
@@ -70,7 +71,6 @@ const load = {
 
         earth = new THREE.Mesh(geometry, material);
         earth.rotation.y = -(Math.PI/2).toFixed(2);
-
         earthGroup = new THREE.Group();
         earthGroup.add(earth);
 
@@ -100,8 +100,11 @@ const load = {
             let sprite = new THREE.Sprite(spriteMaterial)
             let pos = lglt2xyz(location.coord[0], location.coord[1], cityRadius);
             location.pos = pos;
+            
             sprite.position.set(pos.x, pos.y, pos.z)
             sprite.name = location.name;
+            sprite.pos = pos;
+            console.log(pos)
             locationGroup.add(sprite)
         })
     },

@@ -18,5 +18,8 @@ global.LOCATIONS = [{
     name: 'RIO',
     coord: [-22.54, -43.12] // 22° 54' S，43° 12' W
   }, 
-
+  {
+    name: 'LONDON',
+    coord: [51.30, 0.5] // 22° 54' S，43° 12' W
+  }
 ]

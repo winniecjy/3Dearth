@@ -14,3 +14,4 @@
 
 ### 待解决问题
 1. dragControl.js对于THREE.Group无效   
+2. 城市旋转到中心的y轴旋转角度有误

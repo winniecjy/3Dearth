@@ -8,9 +8,9 @@ var lastX, lastY, isTween, tween, cityLast,
 function rotate2Center(pos, radius) {
     var rotate = {};
     rotate.x = Math.asin(pos.y / radius);
-    var temp = pos.y/Math.tan(rotate.x);
-    console.log(rotate.x)
-    rotate.y = Math.asin(pos.x/temp)
+    var temp = radius * Math.cos(rotate.x);
+    rotate.y = Math.atan(pos.x/pos.z);
+    
     return rotate;
 }
 
@@ -100,19 +100,26 @@ const play = {
             }, 500)
 
             // 旋转到中心
-            var cityPos = city.position;
+            var cityPos = city.pos;
             var rotateRad = rotate2Center(cityPos, cityRadius);
+            var finalY = - rotateRad.y;
+            while(earthGroup.rotation.y>0 && finalY+Math.PI*2 < earthGroup.rotation.y) finalY += Math.PI*2;
+            while(earthGroup.rotation.y<0 && finalY-Math.PI*2 > earthGroup.rotation.y) finalY -= Math.PI*2;
+            if(Math.abs(finalY - earthGroup.rotation.y) > Math.PI) {
+                if(finalY > earthGroup.rotation.y) finalY -= Math.PI*2;
+                else finalY += Math.PI*2;
+            }
             console.log(rotateRad)
-            // rotateRad.y-earthGroup.rotation.y
-            rotateEarth(rotateRad.x-earthGroup.rotation.x, 0);
+            // rotateRad.x-earthGroup.rotation.x, rotateRad.y-earthGroup.rotation.y
+            rotateEarth(rotateRad.x-earthGroup.rotation.x, finalY-earthGroup.rotation.y);
         }
 
     },
     render: function () {
-        var earthSpeed = 0.001;
+        var earthSpeed = Math.PI/1000;
         var cloudSpeed = 0.002;
         if (!isTween) {
-            earth.rotation.y += earthSpeed;
+            earthGroup.rotation.y += earthSpeed;
             locationGroup.rotation.y += earthSpeed;
         }
         cloud.rotation.x -= cloudSpeed;
