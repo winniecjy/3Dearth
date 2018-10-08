@@ -5,11 +5,13 @@ var lastX, lastY, isTween, tween, cityLast,
     raycaster = new THREE.Raycaster(),
     mouse = new THREE.Vector2();
 
-function rotate2Center(pos, radius) {
-    var rotate = {};
-    rotate.x = Math.asin(pos.y / radius);
-    var temp = radius * Math.cos(rotate.x);
-    rotate.y = Math.atan(pos.x/pos.z);
+function rotate2Center(coord) {
+    var lg = THREE.Math.degToRad(coord.lg),
+    lt = THREE.Math.degToRad(coord.lt);
+    var rotate = {x: lt, y: lg};
+    // rotate.x = Math.asin(pos.y / radius);
+    // var temp = radius * Math.cos(rotate.x);
+    // rotate.y = Math.atan(pos.x/pos.z);
     
     return rotate;
 }
@@ -100,8 +102,8 @@ const play = {
             }, 500)
 
             // 旋转到中心
-            var cityPos = city.pos;
-            var rotateRad = rotate2Center(cityPos, cityRadius);
+            var cityCoord = city.coord;
+            var rotateRad = rotate2Center(cityCoord);
             var finalY = - rotateRad.y;
             while(earthGroup.rotation.y>0 && finalY+Math.PI*2 < earthGroup.rotation.y) finalY += Math.PI*2;
             while(earthGroup.rotation.y<0 && finalY-Math.PI*2 > earthGroup.rotation.y) finalY -= Math.PI*2;

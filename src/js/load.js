@@ -99,12 +99,10 @@ const load = {
             })
             let sprite = new THREE.Sprite(spriteMaterial)
             let pos = lglt2xyz(location.coord[0], location.coord[1], cityRadius);
-            location.pos = pos;
             
             sprite.position.set(pos.x, pos.y, pos.z)
             sprite.name = location.name;
-            sprite.pos = pos;
-            console.log(pos)
+            sprite.coord = {lt: location.coord[0], lg: location.coord[1]};
             locationGroup.add(sprite)
         })
     },
