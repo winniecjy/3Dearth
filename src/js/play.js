@@ -1,5 +1,3 @@
-require('../lib/tween.min.js');
-
 // var transformControls, dragControls, controls;
 var lastX, lastY, isTween, tween, cityLast,
     raycaster = new THREE.Raycaster(),
@@ -118,13 +116,13 @@ const play = {
 
     },
     render: function () {
-        var earthSpeed = Math.PI/1000;
-        var cloudSpeed = 0.002;
+        var earthSpeed = Math.PI/3000;
+        var cloudSpeed = 0.0001;
         if (!isTween) {
             earthGroup.rotation.y += earthSpeed;
             locationGroup.rotation.y += earthSpeed;
         }
-        cloud.rotation.x -= cloudSpeed;
+        cloud.rotation.y += cloudSpeed;
 
         TWEEN.update();
         renderer.render(scene, camera);

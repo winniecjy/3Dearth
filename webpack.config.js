@@ -39,12 +39,6 @@ module.exports = {
 				from : './src/img',
 				to : 'img',
 				ignore : ['.gitkeep']
-			}, {
-				from : './src/audio',
-				to : 'audio'
-			}, {
-				from : './src/lib',
-				to : 'lib'
 			}
 		]),
 		new HtmlWebpackPlugin({

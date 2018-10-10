@@ -42,13 +42,21 @@ const load = {
     },
 
     initRender: function () {
-        renderer = new THREE.WebGLRenderer({
-            alpha: true,
-            antialias: true
-        });
+        if (Detector.webgl)
+            global.renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true
+            });
+        else
+            global.renderer = new THREE.CanvasRenderer();
+
+        // global.renderer = new THREE.WebGLRenderer({
+        //     alpha: true,
+        //     antialias: true
+        // });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true;
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(window.devicePixelRatio * .8); // 这一行会使得手机端的FPS降低到30
         renderer.setClearAlpha(0);
         container.appendChild(renderer.domElement);
     },
