@@ -22,15 +22,11 @@
     "postcss-loader": "^2.0.6",
     "postcss-plugin-px2rem": "^0.7.0",
     "postcss-sprites": "^4.2.1",
+    "promise-polyfill": "^8.1.0",
     "sass-loader": "^6.0.6",
-    "webpack-dev-server": "^2.7.1"
+    "webpack": "^3.12.0",
+    "webpack-dev-server": "^2.7.1",
+    "whatwg-fetch": "^3.0.0"
   },
-  "dependencies": {
-    "@jmfe/jm-cookie": "^1.0.0",
-    "@jmfe/jm-service": "^2.1.0",
-    "@jmfe/jm-webview": "^1.6.0-beta.1",
-    "promise-polyfill": "6.0.2",
-    "scriptjs": "^2.5.8",
-    "whatwg-fetch": "^2.0.3"
-  }
+  "dependencies": {}
 }

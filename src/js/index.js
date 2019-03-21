@@ -1,10 +1,3 @@
-//内部组件
-// var util = require('../lib/util');
-// var jdShare = require('../lib/jdShare');
-// var wxShare = require('../lib/share');
-// var cookie = require('../lib/cookie');
-// var mShare = require('../lib/mShare');
-
 require('../css/reset.scss');
 require('../css/common.scss');
 
@@ -15,9 +8,6 @@ if (!window.Promise) {
 }
 require('whatwg-fetch');
 //end:polyfill
-
-var webview = require('@jmfe/jm-webview');
-var service = require('@jmfe/jm-service');
 
 require('./constant');
 var load = require('./load');

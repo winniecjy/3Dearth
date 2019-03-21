@@ -14,3 +14,17 @@ function renderPerformer() {
     requestAnimationFrame(renderPerformer);
 }
 renderPerformer();
+
+// 控制
+var gui = {
+    lightY: 30,
+    rotateSpeed: 0.02
+ }
+ 
+ var datGui = new dat.GUI();
+ 
+ /**
+  * gui.add(obj，attr，min，max）
+  */
+ datGui.add(gui, "lightY", 0, 100);
+ datGui.add(gui, "rotateSpeed", 0, 1);
